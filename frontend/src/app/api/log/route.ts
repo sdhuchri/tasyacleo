@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { Redis } from "@upstash/redis";
 
-const LOG_FILE = path.join(process.cwd(), "logs", "activity.log");
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL!,
+  token: process.env.KV_REST_API_TOKEN!,
+});
 
-function ensureLogDir() {
-  const dir = path.dirname(LOG_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-}
+const LOG_KEY = "tasyacleo:logs";
+const MAX_LOGS = 500;
 
 function formatTimestamp() {
   const now = new Date();
@@ -28,13 +28,13 @@ export async function POST(req: NextRequest) {
     const { action, detail } = await req.json();
     if (!action) return NextResponse.json({ ok: false }, { status: 400 });
 
-    ensureLogDir();
-
     const ip = getClientIP(req).padEnd(16);
     const tag = action.toUpperCase().padEnd(20);
-    const line = `[${formatTimestamp()}]  ${ip}  ${tag}  ${detail ?? ""}\n`;
+    const line = `[${formatTimestamp()}]  ${ip}  ${tag}  ${detail ?? ""}`;
 
-    fs.appendFileSync(LOG_FILE, line, "utf-8");
+    await redis.lpush(LOG_KEY, line);
+    await redis.ltrim(LOG_KEY, 0, MAX_LOGS - 1);
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false }, { status: 500 });
@@ -43,10 +43,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
-    ensureLogDir();
-    if (!fs.existsSync(LOG_FILE)) return NextResponse.json({ logs: [] });
-    const content = fs.readFileSync(LOG_FILE, "utf-8");
-    const logs = content.trim().split("\n").filter(Boolean).reverse();
+    const logs = await redis.lrange(LOG_KEY, 0, MAX_LOGS - 1);
     return NextResponse.json({ logs });
   } catch {
     return NextResponse.json({ logs: [] });
