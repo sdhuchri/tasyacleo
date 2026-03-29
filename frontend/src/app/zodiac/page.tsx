@@ -71,7 +71,7 @@ export default function ZodiacPage() {
               <p className="heading-display italic text-2xl text-charcoal-light">When were you born?</p>
               <DatePicker
                 selected={birthdate ? new Date(birthdate) : null}
-                onChange={(date) => setBirthdate(date ? date.toISOString().split("T")[0] : "")}
+                onChange={(date: Date | null) => setBirthdate(date ? date.toISOString().split("T")[0] : "")}
                 dateFormat="MMMM d, yyyy"
                 showMonthDropdown
                 showYearDropdown
