@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Upright:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --cream: #FAF7F2;
+  --cream-dark: #F2ECE3;
+  --rose: #C4847A;
+  --rose-light: #E8C4BF;
+  --rose-pale: #F5E6E3;
+  --mauve: #9B8EA8;
+  --mauve-light: #D4CBE0;
+  --sand: #D4C5B2;
+  --charcoal: #2C2828;
+  --charcoal-light: #5C5757;
+  --muted: #9C9491;
+  --white: #FFFFFF;
+  --border: #E8E0D8;
+}
+
+@theme inline {
+  --color-cream: #FAF7F2;
+  --color-cream-dark: #F2ECE3;
+  --color-rose: #C4847A;
+  --color-rose-light: #E8C4BF;
+  --color-rose-pale: #F5E6E3;
+  --color-mauve: #9B8EA8;
+  --color-sand: #D4C5B2;
+  --color-charcoal: #2C2828;
+  --color-charcoal-light: #5C5757;
+  --color-muted: #9C9491;
+  --color-border: #E8E0D8;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-upright: 'Cormorant Upright', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* react-datepicker custom theme */
+.tasya-calendar {
+  font-family: 'Inter', sans-serif !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(44,40,40,0.08) !important;
+  background: var(--white) !important;
+  padding: 12px !important;
+}
+.tasya-calendar .react-datepicker__header {
+  background: var(--white) !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding-bottom: 10px !important;
+}
+.tasya-calendar .react-datepicker__current-month,
+.tasya-calendar .react-datepicker__day-name {
+  color: var(--charcoal) !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0.05em !important;
+}
+.tasya-calendar .react-datepicker__day {
+  color: var(--charcoal-light) !important;
+  border-radius: 50% !important;
+  font-size: 12px !important;
+  width: 2rem !important;
+  line-height: 2rem !important;
+}
+.tasya-calendar .react-datepicker__day:hover {
+  background: var(--rose-pale) !important;
+  color: var(--rose) !important;
+}
+.tasya-calendar .react-datepicker__day--selected,
+.tasya-calendar .react-datepicker__day--keyboard-selected {
+  background: var(--rose) !important;
+  color: white !important;
+}
+.tasya-calendar .react-datepicker__day--today {
+  font-weight: 600 !important;
+  color: var(--rose) !important;
+}
+.tasya-calendar .react-datepicker__navigation-icon::before {
+  border-color: var(--rose) !important;
+}
+.tasya-calendar .react-datepicker__month-select,
+.tasya-calendar .react-datepicker__year-select {
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  padding: 2px 6px !important;
+  font-size: 12px !important;
+  color: var(--charcoal) !important;
+  background: var(--cream) !important;
+}
+
+/* Subtle grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 99px; }
+
+/* Divider line */
+.divider {
+  width: 40px;
+  height: 1px;
+  background: var(--rose);
+  display: block;
+}
+
+/* Fade in animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rose);
+}
+
+/* Display heading */
+.heading-display {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* Card */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Subtle hover */
+.hover-lift {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(44, 40, 40, 0.08);
+}

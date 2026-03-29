@@ -1,0 +1,35 @@
+# Backend (not used)
+backend/
+
+# Dependencies
+frontend/node_modules/
+
+# Build outputs
+frontend/.next/
+frontend/out/
+
+# Logs
+frontend/logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local
+frontend/.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# TypeScript build info
+frontend/tsconfig.tsbuildinfo
+
+# Private data
+message_ig_tasya.json
